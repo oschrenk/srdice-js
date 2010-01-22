@@ -1,16 +1,102 @@
 <html xmlns="http://www.w3.org/1999/xhtml"> 
 
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-	
-	<script src="srdice.js" type="text/javascript"></script>
-	<script src="srdice-test.js" type="text/javascript"></script>
 	
 	<title>Shadowrun DiceRoller</title> 
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+	
+	<script src="srdice.js" type="text/javascript"></script>
+	<script src="srdice-ui.js" type="text/javascript"></script>
+	
+	<link href="style.css" rel="stylesheet" type="text/css" media="screen" /> 
+	
+	<script type="text/javascript">
+		// get settings
+		var diceEl = document.getElementById("dice");
+		var dice = diceEl.options[diceEl.selectedIndex].text;
+		var targetEl = document.getElementById("tn");
+		var target = targetEl.options[targetEl.selectedIndex].text;
+	
+		// roll the dice
+		var roll = successTest(dice,target);
+	
+		// display number of successes
+		document.getElementById("successes").innerHTML = roll.successes.length;
+	
+		// add roll to log
+		var li = document.createElement('li');
+		li.innerHTML = roll.all;
+	
+		var ul = document.getElementById("log");
+		var firstLi = ul.firstChild;
+		ul.insertBefore(li, firstLi);
+		if (ul.childNodes.length > 5) {
+			var lastLi = ul.lastChild;
+			ul.removeChild(lastLi);
+		}
+	</script>
+	
 </head>
 <body>
-	<A HREF="#"
-	onClick="test()";>Test</A>
+	<div id="wrapper">
+		<div id="roll-container">
+			<div id="roll" onclick="roll();">Roll the<br> f***ing dice</div>
+			<div id="successes">
+				&nbsp;
+			</div>
+		</div>
+		
+		<h3>Success Test</h3>
+
+		<div class="selects">
+			
+			<div class="select" style="float: left;">
+				<h4>Dice</h4>
+				<select id="dice">
+				  <option>14</option>
+				  <option>13</option>
+				  <option>12</option>
+				  <option>11</option>	
+				  <option>10</option>
+				  <option>9</option>
+				  <option>8</option>
+				  <option>7</option>
+				  <option selected>6</option>
+				  <option>4</option>
+				  <option>3</option>
+				  <option>2</option>
+				  <option>1</option>
+				</select>
+			</div>
+			
+			<div class="select">
+				<h4>Target number</h4>
+				<select id="tn">
+					<option>15</option>
+					<option>14</option>
+					<option>13</option>
+					<option>12</option>
+					<option>11</option>	
+					<option>10</option>
+					<option>9</option>
+					<option>8</option>
+					<option>7</option>
+					<option>6</option>
+					<option selected>5</option>
+					<option>4</option>
+					<option>3</option>
+					<option>2</option>
+					<option>1</option>
+				</select>
+			</div>
+		</div>
+				
+		<h3>History</h3>
+		<ul id="log">
+		</ul>
+		
 	
 </body>
 </html>
