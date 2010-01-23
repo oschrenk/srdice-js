@@ -26,6 +26,10 @@
 			// display number of successes
 			document.getElementById("successes").innerHTML = roll.successes.length;
 	
+			// display other info
+			document.getElementById("max").innerHTML = roll.max;
+			document.getElementById("sum").innerHTML = roll.sum;
+	
 			// add roll to log
 			var li = document.createElement('li');
 			li.innerHTML = roll.all;
@@ -45,8 +49,13 @@
 	<div id="wrapper">
 		<div id="roll-container">
 			<div id="roll" onclick="roll();">Roll the<br> f***ing dice</div>
-			<div id="successes">
-				&nbsp;
+			<div id="result">
+				<div id="successes">
+				-
+				</div>
+				<div id="info"> 
+					max: <span id="max">-</span> / sum: <span id="sum">-</span>
+				</div>
 			</div>
 		</div>
 		

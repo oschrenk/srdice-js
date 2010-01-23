@@ -5,16 +5,23 @@ function successTest (numberOfDice, targetNumber) {
 	var roll = diceCup.roll(numberOfDice, SIDES);
 
 	var result = new Object();
-	result.all = roll;
-	result.max = roll[roll.length-1];
 	var myFilter = new GreaterOrEqualTargetNumberFilter(targetNumber);
+	
+	result.all = roll;
 	result.successes = roll.filter(myFilter.apply)
-
+	result.max = roll[roll.length-1];
+	result.sum = Array.sum(roll);
+	
 	if (roll.length == count(roll, 1)) {
 		result.fail = true;
 	}
 
 	return result;
+}
+
+Array.sum = function(myArray){
+	for(var i=0,sum=0;i<myArray.length;sum+=myArray[i++]);
+	return sum;
 }
 
 function GreaterOrEqualTargetNumberFilter (targetNumber) {
