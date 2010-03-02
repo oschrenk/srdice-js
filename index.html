@@ -1,4 +1,6 @@
-<html xmlns="http://www.w3.org/1999/xhtml"> 
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" manifest="cache.manifest"> 
 
 <head>
 	
@@ -8,33 +10,39 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 	
 	<script src="srdice.js" type="text/javascript"></script>
-	<script src="srdice-ui.js" type="text/javascript"></script>
 	
 	<link href="style.css" rel="stylesheet" type="text/css" media="screen" /> 
 	
 	<script type="text/javascript">
-		// get settings
-		var diceEl = document.getElementById("dice");
-		var dice = diceEl.options[diceEl.selectedIndex].text;
-		var targetEl = document.getElementById("tn");
-		var target = targetEl.options[targetEl.selectedIndex].text;
 	
-		// roll the dice
-		var roll = successTest(dice,target);
+		function roll() {
+			// get settings
+			var diceEl = document.getElementById("dice");
+			var dice = diceEl.options[diceEl.selectedIndex].text;
+			var targetEl = document.getElementById("tn");
+			var target = targetEl.options[targetEl.selectedIndex].text;
 	
-		// display number of successes
-		document.getElementById("successes").innerHTML = roll.successes.length;
+			// roll the dice
+			var roll = successTest(dice,target);
 	
-		// add roll to log
-		var li = document.createElement('li');
-		li.innerHTML = roll.all;
+			// display number of successes
+			document.getElementById("successes").innerHTML = roll.successes.length;
 	
-		var ul = document.getElementById("log");
-		var firstLi = ul.firstChild;
-		ul.insertBefore(li, firstLi);
-		if (ul.childNodes.length > 5) {
-			var lastLi = ul.lastChild;
-			ul.removeChild(lastLi);
+			// display other info
+			document.getElementById("max").innerHTML = roll.max;
+			document.getElementById("sum").innerHTML = roll.sum;
+	
+			// add roll to log
+			var li = document.createElement('li');
+			li.innerHTML = roll.all;
+	
+			var ul = document.getElementById("log");
+			var firstLi = ul.firstChild;
+			ul.insertBefore(li, firstLi);
+			if (ul.childNodes.length > 5) {
+				var lastLi = ul.lastChild;
+				ul.removeChild(lastLi);
+			}
 		}
 	</script>
 	
@@ -43,8 +51,13 @@
 	<div id="wrapper">
 		<div id="roll-container">
 			<div id="roll" onclick="roll();">Roll the<br> f***ing dice</div>
-			<div id="successes">
-				&nbsp;
+			<div id="result">
+				<div id="successes">
+				-
+				</div>
+				<div id="info"> 
+					max: <span id="max">-</span> / sum: <span id="sum">-</span>
+				</div>
 			</div>
 		</div>
 		
@@ -55,6 +68,12 @@
 			<div class="select" style="float: left;">
 				<h4>Dice</h4>
 				<select id="dice">
+				  <option>20</option>
+				  <option>19</option>
+				  <option>18</option>
+				  <option>17</option>
+				  <option>16</option>	
+				  <option>15</option>	
 				  <option>14</option>
 				  <option>13</option>
 				  <option>12</option>
@@ -64,16 +83,22 @@
 				  <option>8</option>
 				  <option>7</option>
 				  <option selected>6</option>
+				  <option>5</option>
 				  <option>4</option>
 				  <option>3</option>
 				  <option>2</option>
 				  <option>1</option>
 				</select>
 			</div>
-			
+						
 			<div class="select">
 				<h4>Target number</h4>
 				<select id="tn">
+					<option>20</option>
+					<option>19</option>
+					<option>18</option>
+					<option>17</option>	
+					<option>16</option>
 					<option>15</option>
 					<option>14</option>
 					<option>13</option>
@@ -88,7 +113,6 @@
 					<option>4</option>
 					<option>3</option>
 					<option>2</option>
-					<option>1</option>
 				</select>
 			</div>
 		</div>
