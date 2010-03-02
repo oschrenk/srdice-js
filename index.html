@@ -1,60 +1,126 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" manifest="cache.manifest"> 
+
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
-	<title>oschrenk/srdice-js @ GitHub</title>
-	<link href='css/style.css' rel='stylesheet' /> 
+	
+	<title>Shadowrun DiceRoller</title> 
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+	
+	<script src="srdice.js" type="text/javascript"></script>
+	
+	<link href="style.css" rel="stylesheet" type="text/css" media="screen" /> 
+	
+	<script type="text/javascript">
+	
+		function roll() {
+			// get settings
+			var diceEl = document.getElementById("dice");
+			var dice = diceEl.options[diceEl.selectedIndex].text;
+			var targetEl = document.getElementById("tn");
+			var target = targetEl.options[targetEl.selectedIndex].text;
+	
+			// roll the dice
+			var roll = successTest(dice,target);
+	
+			// display number of successes
+			document.getElementById("successes").innerHTML = roll.successes.length;
+	
+			// display other info
+			document.getElementById("max").innerHTML = roll.max;
+			document.getElementById("sum").innerHTML = roll.sum;
+	
+			// add roll to log
+			var li = document.createElement('li');
+			li.innerHTML = roll.all;
+	
+			var ul = document.getElementById("log");
+			var firstLi = ul.firstChild;
+			ul.insertBefore(li, firstLi);
+			if (ul.childNodes.length > 5) {
+				var lastLi = ul.lastChild;
+				ul.removeChild(lastLi);
+			}
+		}
+	</script>
 	
 </head>
-
 <body>
-  <a href="http://github.com/oschrenk/srdice-js"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
-  
-  <div id="container">
-
-    <div id="download">
-      <a href="http://github.com/oschrenk/srdice-js/zipball/master">
-        <img src="http://github.com/images/modules/download/zip.png"></a>
-      <a href="http://github.com/oschrenk/srdice-js/tarball/master">
-        <img src="http://github.com/images/modules/download/tar.png"></a>
-    </div>
-      
-    <h1><a href="http://github.com/oschrenk/srdice-js">srdice-js</a> 
-      <span class="small">by <a href="http://github.com/oschrenk">oschrenk</a></span></h1>
-
-    <div class="description">
-		<p>Optimized for the iPhone/iPod Touch.</p>
-		<p>Visit an online version of the Dice Roller <a href="http://oschrenk.github.com/srdice-js/iphone/index.html">here</a></p>
+	<div id="wrapper">
+		<div id="roll-container">
+			<div id="roll" onclick="roll();">Roll the<br> f***ing dice</div>
+			<div id="result">
+				<div id="successes">
+				-
+				</div>
+				<div id="info"> 
+					max: <span id="max">-</span> / sum: <span id="sum">-</span>
+				</div>
+			</div>
+		</div>
 		
-		<p>You can choose a number of dice (1-20) and a target number (2-20) and touch the text "Roll the f*** dice" to see how man successes you got.</p>
-		<p>It also shows the the highest result if you just have to make an <strong>Open Success Test</strong> and the sum off all dice for an <strong>Initiative Roll</strong>
-		</p>
-	</div>
+		<h3>Success Test</h3>
 
-<h2>Contact</h2>
-<p>Oliver Schrenk (Oliver.Schrenk@gmail.com)
-<br/>      </p>
-
-    <h2>Download</h2>
-    <p>
-      You can download this project in either
-      <a href="http://github.com/oschrenk/srdice-js/zipball/master">zip</a> or
-      <a href="http://github.com/oschrenk/srdice-js/tarball/master">tar</a> formats.
-    </p>
-    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-      by running:
-      <pre>$ git clone git://github.com/oschrenk/srdice-js</pre>
-    </p>
-      
-    <div class="footer">
-      get the source code on GitHub : <a href="http://github.com/oschrenk/srdice-js">oschrenk/srdice-js</a>
-    </div>
-    
-  </div>
-
-  
+		<div class="selects">
+			
+			<div class="select" style="float: left;">
+				<h4>Dice</h4>
+				<select id="dice">
+				  <option>20</option>
+				  <option>19</option>
+				  <option>18</option>
+				  <option>17</option>
+				  <option>16</option>	
+				  <option>15</option>	
+				  <option>14</option>
+				  <option>13</option>
+				  <option>12</option>
+				  <option>11</option>	
+				  <option>10</option>
+				  <option>9</option>
+				  <option>8</option>
+				  <option>7</option>
+				  <option selected>6</option>
+				  <option>5</option>
+				  <option>4</option>
+				  <option>3</option>
+				  <option>2</option>
+				  <option>1</option>
+				</select>
+			</div>
+						
+			<div class="select">
+				<h4>Target number</h4>
+				<select id="tn">
+					<option>20</option>
+					<option>19</option>
+					<option>18</option>
+					<option>17</option>	
+					<option>16</option>
+					<option>15</option>
+					<option>14</option>
+					<option>13</option>
+					<option>12</option>
+					<option>11</option>	
+					<option>10</option>
+					<option>9</option>
+					<option>8</option>
+					<option>7</option>
+					<option>6</option>
+					<option selected>5</option>
+					<option>4</option>
+					<option>3</option>
+					<option>2</option>
+				</select>
+			</div>
+		</div>
+				
+		<h3>History</h3>
+		<ul id="log">
+		</ul>
+		
+	
 </body>
 </html>
